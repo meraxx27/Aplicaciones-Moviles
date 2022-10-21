@@ -1,9 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistroPrron">
+    android:background="@drawable/background"
+    tools:context=".RegistroPrron"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="122dp"
+        android:layout_height="87dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/student" />
+
+    <EditText
+        android:id="@+id/PrimerNombre"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:id="@+id/ApellidoPrimero"
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PrimerNombre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/textnombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Nombre:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtapellido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PrimerNombre"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Apellido:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/EmailUsuario"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ApellidoPrimero"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/txtemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ApellidoPrimero"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Email:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EmailUsuario"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Contraseña:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/contrasena1"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EmailUsuario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/txtpass2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contrasena1"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Confirmar Contraseña:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/contrasena2"
+        android:layout_width="261dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contrasena1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="#ffffff" />
+
+    <Spinner
+        android:id="@+id/spinnerNationality"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contrasena2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/txtNacionalidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contrasena2"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Nacionalidad:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/botonregistrar"
+        android:layout_width="267dp"
+        android:layout_height="44dp"
+        android:layout_below="@id/spinnerNationality"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="89dp"
+        android:background="@drawable/boton_modificacion"
+        android:text="Registrar"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/txtDOB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerNationality"
+        android:layout_alignStart="@id/PrimerNombre"
+        android:layout_alignLeft="@id/PrimerNombre"
+        android:layout_marginTop="22dp"
+        android:text="Fecha de Nacimiento:"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/botonfecha"
+        style="?android:spinnerStyle"
+        android:layout_width="138dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/spinnerNationality"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/botonnumero5"
+        android:onClick="OpenDatePicker"
+        android:text="01/01/2022"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/txtVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/prueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#ffffff"
+        android:layout_alignStart="@id/contrasena2"/>
+
+
+</RelativeLayout>

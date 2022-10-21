@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         Noregistro = (TextView) findViewById(R.id.Noregistro);
         Noregistro.setOnClickListener(new View.OnClickListener() {
