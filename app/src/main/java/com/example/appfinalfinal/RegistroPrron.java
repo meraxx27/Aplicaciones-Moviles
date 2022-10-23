@@ -35,7 +35,7 @@ public class RegistroPrron extends AppCompatActivity {
         botonfecha.setText(getTodayDate());
 
 
-        String [] leNatioonalite = {"Argentina", "Bolivia", "Canada", "Colombia", "Costa Rica", "Chile", "Ecuador", "México", "Perú", "Estados Unidos"  };
+        String [] leNatioonalite = {"Argentina", "Bolivia", "Canada", "Colombia", "Costa Rica", "Chile", "Ecuador", "México", "Perú", "Estados Unidos", "Malasia"  };
         spinner1 = findViewById(R.id.spinnerNationality);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, leNatioonalite);
         spinner1.setAdapter(adapter);

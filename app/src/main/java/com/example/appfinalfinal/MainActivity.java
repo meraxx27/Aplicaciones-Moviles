@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.material.button.MaterialButton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,13 +23,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import okhttp3.*;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText emailusuario, contrasena;
     TextView Noregistro;
     Button botoningreso;
     TextView resultado;
-    String endpoint = " https://user-res-api.herokuapp.com/user/checkUser";
+    String endpoint = "https://user-res-api.herokuapp.com/user/checkUser";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,26 +46,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
+        Noregistro = (TextView) findViewById(R.id.Noregistro);
         emailusuario = (EditText) findViewById(R.id.emailusuario);
         contrasena = (EditText) findViewById(R.id.contrasena);
-        Noregistro = (TextView) findViewById(R.id.Noregistro);
+        resultado = (TextView) findViewById(R.id.resultado);
         botoningreso = (Button) findViewById(R.id.botoningreso);
         botoningreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!emailusuario.getText().toString().equals("") && !contrasena.getText().toString().equals(""))
-                {
-                    String[] credenciales = {emailusuario.getText().toString().trim(), contrasena.getText().toString().trim(), endpoint};
-                    API api = new API();
-                    api.execute(credenciales);
-                }
-                else
-                {
+                if (!emailusuario.getText().toString().equals("") && !contrasena.getText().toString().equals("")) {
+                    String Email = emailusuario.getText().toString();
+                    String password = contrasena.getText().toString();
+                    LoginUser login = new LoginUser();
+                    login.execute(Email, password);
+                } else {
                     Toast.makeText(MainActivity.this, "Esta faltando un elemento :c", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
         Noregistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,58 +72,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private class API extends AsyncTask<String, String, String>{
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    public class LoginUser extends AsyncTask<String, String, String> {
         @Override
-        protected String doInBackground(String... credenciales){
-            String respuesta = "";
-            String username = credenciales[0];
-            String password = credenciales[1];
-            String endpoint = credenciales[2];
+        protected String doInBackground(String... strings) {
+            String Email = strings[0];
+            String Password = strings[1];
+            String postBody = "{\n   \"email\" : \""+Email+"\",\n   \"password\" : \""+Password+"\"\n}";
+
+            RequestBody body = RequestBody.create(JSON, postBody);
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .addHeader("Content-Type", "application/json; charset=utf8")
+                    .url(endpoint)
+                    .post(body)
+                    .build();
+
+            Response response = null;
+            String result = " ";
+
             try {
-                URL url = new URL(endpoint);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Accept", "*/*");
-                conn.setDoOutput(true);
-                String payload = "{\n "+username+"\",\n  \""+password+"\"\n}";
-                try (OutputStream os = conn.getOutputStream())
-                {
-                    byte[] input = payload.getBytes(StandardCharsets.UTF_8);
-                    os.write(input, 0, input.length);
+                response = client.newCall(request).execute();
+
+                if (response.isSuccessful()) {
+                    result = response.body().string();
+                    String finalResult = result;
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println(finalResult);
+                            if (finalResult.equals("true")){
+                                Toast.makeText(MainActivity.this, "Log in Exitoso", Toast.LENGTH_SHORT).show();
+                                resultado.setText("El usuario si existe");
+                                Intent i = new Intent(MainActivity.this, LoginConseguido.class);
+                                startActivity(i);
+                            }else{
+                                resultado.setText("Incorrecto");
+                                Toast.makeText(MainActivity.this, "Error en usuario o contraseña", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8)))
-                {
-                    StringBuilder resp = new StringBuilder();
-                    String respLine = null;
-                    while ((respLine = br.readLine()) != null)
-                    {
-                        resp.append(respLine.toString());
-                    }
-                    respuesta = resp.toString();
-                }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            return respuesta;
+            return result;
         }
-
-        @Override
-        protected void onPostExecute(String respuesta)
-        {
-            try
-            {
-                JSONObject json = new JSONObject(respuesta);
-                resultado.setText(json.getString("status"));
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
     }
-
 }
