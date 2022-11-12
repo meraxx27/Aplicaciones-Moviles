@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="650dp"
         android:text="No tienes cuenta?, Registrate aqui c:"
         android:textColor="#ffffff"
         android:textSize="15sp"
@@ -92,7 +92,16 @@
         android:textColor="#ffffff"
         android:textStyle="bold" />
 
-
+    <CheckBox
+        android:id="@+id/keepsesion"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mantener iniciada la sesion"
+        android:layout_marginStart="95dp"
+        android:textStyle="bold"
+        android:layout_marginTop="570dp"
+        />
 
 
 </RelativeLayout>
