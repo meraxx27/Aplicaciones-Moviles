@@ -11,11 +11,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.StrongBoxUnavailableException;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.nio.channels.Channel;
 
@@ -24,15 +26,29 @@ public class LoginConseguido extends AppCompatActivity {
     private static final String CHANNEL_ID = "channel_id01";
     private static final int NOTIFICATION_ID = 1;
     Button Volver,GetNotify;
-
+    TextView n,ln,dob,email,nac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_conseguido);
+        getSupportActionBar().hide();
 
         GetNotify = (Button) findViewById(R.id.Notify);
         Volver = (Button) findViewById(R.id.Volver);
+        n = (TextView) findViewById(R.id.txtname);
+        ln = (TextView) findViewById(R.id.txtlastname);
+        email = (TextView) findViewById(R.id.txtemail);
+        dob = (TextView) findViewById(R.id.txtfecha);
+        nac = (TextView) findViewById(R.id.txtnac);
+        SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
+        n.setText(sharedPreferences.getString("name", ""));
+        ln.setText(sharedPreferences.getString("lastname", ""));
+        email.setText(sharedPreferences.getString("email", ""));
+        dob.setText(sharedPreferences.getString("fecha",""));
+        nac.setText(sharedPreferences.getString("nationality",""));
+
+
 
         Volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +74,7 @@ public class LoginConseguido extends AppCompatActivity {
 
         builder.setContentTitle("Ahi va profe");
 
-        builder.setContentText("Yo digo que un cienon profe, o ya paseme :c");
+        builder.setContentText("Yo digo que un cienon profe, o ya paseme ya me quiero ir :c");
 
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
