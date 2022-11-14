@@ -18,14 +18,14 @@ import android.security.keystore.StrongBoxUnavailableException;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.os.Handler;
 import java.nio.channels.Channel;
 
 
 public class LoginConseguido extends AppCompatActivity {
     private static final String CHANNEL_ID = "channel_id01";
     private static final int NOTIFICATION_ID = 1;
-    Button Volver,GetNotify;
+    Button Volver,GetNotify,edit,delete;
     TextView n,ln,dob,email,nac;
 
     @Override
@@ -34,27 +34,47 @@ public class LoginConseguido extends AppCompatActivity {
         setContentView(R.layout.activity_login_conseguido);
         getSupportActionBar().hide();
 
+
         GetNotify = (Button) findViewById(R.id.Notify);
         Volver = (Button) findViewById(R.id.Volver);
+        edit = (Button) findViewById(R.id.Edit);
+        delete = (Button) findViewById(R.id.delete);
         n = (TextView) findViewById(R.id.txtname);
         ln = (TextView) findViewById(R.id.txtlastname);
         email = (TextView) findViewById(R.id.txtemail);
         dob = (TextView) findViewById(R.id.txtfecha);
         nac = (TextView) findViewById(R.id.txtnac);
         SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
-        n.setText(sharedPreferences.getString("name", ""));
-        ln.setText(sharedPreferences.getString("lastname", ""));
-        email.setText(sharedPreferences.getString("email", ""));
-        dob.setText(sharedPreferences.getString("fecha",""));
-        nac.setText(sharedPreferences.getString("nationality",""));
-
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                n.setText(sharedPreferences.getString("name", ""));
+                ln.setText(sharedPreferences.getString("lastname", ""));
+                email.setText(sharedPreferences.getString("email", ""));
+                dob.setText(sharedPreferences.getString("fecha",""));
+                nac.setText(sharedPreferences.getString("nationality",""));
+                String xd = sharedPreferences.getString("isAdmin", "False");
+                if (xd.equals("true")){
+                    edit.setVisibility(View.VISIBLE);
+                    delete.setVisibility(View.VISIBLE);
+                } else {
+                    edit.setVisibility(View.INVISIBLE);
+                    delete.setVisibility(View.INVISIBLE);
+                }
+            }
+        }, 250);
 
 
         Volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("CHECKED",false);
+                editor.commit();
                 Intent i = new Intent(LoginConseguido.this, MainActivity.class);
+
                 startActivity(i);
+                ///editor.clear().commit();
             }
         });
         GetNotify.setOnClickListener(new View.OnClickListener() {

@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String llave = "sesion";
+    ///private SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
 
 
     @Override
@@ -60,12 +61,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
+        if(revisarSesion()){
+            String emailcheck = sharedPreferences.getString("email","");
+            String contrasnacheck = sharedPreferences.getString("password","");
+            LoginUser login = new LoginUser();
+            login.execute(emailcheck,contrasnacheck);
+        }
         Noregistro = (TextView) findViewById(R.id.Noregistro);
         emailusuario = (EditText) findViewById(R.id.emailusuario);
         contrasena = (EditText) findViewById(R.id.contrasena);
         resultado = (TextView) findViewById(R.id.resultado);
         botoningreso = (Button) findViewById(R.id.botoningreso);
+        keepsesion = (CheckBox) findViewById(R.id.keepsesion);
+
 
         botoningreso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String Email = strings[0];
             String Password = strings[1];
+            SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("password",Password);
+            editor.commit();
+
             String postBody = "{\n   \"email\" : \""+Email+"\",\n   \"password\" : \""+Password+"\"\n}";
 
             RequestBody body = RequestBody.create(JSON, postBody);
@@ -115,6 +129,17 @@ public class MainActivity extends AppCompatActivity {
                 response = client.newCall(request).execute();
 
                 if (response.isSuccessful()) {
+
+                    boolean keep;
+
+                    editor.commit();
+                    if (keepsesion.isChecked()){
+                        keep = true;
+                    editor.putBoolean("CHECKED",keep);
+                    editor.commit();
+                    }else{
+                        keep = false;
+                    }
                     result = response.body().string();
                     String finalResult = result;
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -167,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                     result = response.body().string();
                     String finalResult = result;
                     JSONObject json = new JSONObject(finalResult);
-                    System.out.println(json);
                     String username = json.getString("name");
                     String userlastname = json.getString("lastname");
                     String useremail = json.getString("email");
@@ -176,19 +200,29 @@ public class MainActivity extends AppCompatActivity {
                     String usernationality = json.getString("nationality");
                     SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+                    ///editor.clear().commit();
                     editor.putString("name", username);
                     editor.putString("lastname", userlastname);
                     editor.putString("email", useremail);
                     editor.putString("fecha", userdob);
                     editor.putString("nationality", usernationality);
                     editor.putString("isAdmin", userAdmin);
-                    editor.commit();
-                    System.out.println(sharedPreferences.getString("isAdmin", ""));
+                    editor.apply();
+
+                    System.out.println("_____________________________________");
+                    System.out.println(sharedPreferences.getAll());
+                    System.out.println("________________________________________");
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
+    }
+    private boolean revisarSesion(){
+        SharedPreferences sharedPreferences = getSharedPreferences("KafrezzedeOreoChico", Context.MODE_PRIVATE);
+        boolean ssn = sharedPreferences.getBoolean("CHECKED",false);
+        return ssn;
     }
 }
