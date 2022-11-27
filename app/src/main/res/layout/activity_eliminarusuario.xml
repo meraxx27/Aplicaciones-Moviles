@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".eliminarusuario">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="italic"
+        android:layout_centerHorizontal="true"
+        android:text="Vamos a eliminar a una victima" />
+
+    <Button
+        android:id="@+id/btnborrar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:autoSizeTextType="uniform"
+        android:text="Eliminar"
+        android:background="@drawable/boton_modificacion"
+        />
+
+    <EditText
+        android:id="@+id/emailus1"
+        android:autoSizeTextType="uniform"
+        android:layout_width="312dp"
+        android:layout_height="71dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:width="250dp"
+        android:ems="10"
+        android:textColor="@color/white"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/emailus2"
+        android:autoSizeTextType="uniform"
+        android:layout_width="312dp"
+        android:layout_height="71dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:width="250dp"
+        android:textColor="@color/white"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:layout_below="@id/textView"
+        android:text="Email:" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:textSize="25dp"
+        android:layout_below="@id/textView"
+        android:text="Confirmar Email:" />
+
+    <Button
+        android:id="@+id/btnvolver"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="600dp"
+        android:autoSizeTextType="uniform"
+        android:text="Volver"
+        android:background="@drawable/boton_modificacion"
+        />
+</RelativeLayout>

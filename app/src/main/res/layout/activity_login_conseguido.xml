@@ -46,10 +46,10 @@
         android:id="@+id/Notify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notificacion"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        tools:ignore="MissingConstraints"/>
+        android:layout_marginTop="200dp"
+        android:text="Notificacion"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtemail"
@@ -103,7 +103,31 @@
         android:layout_marginRight="0dp"
         android:layout_toEndOf="@+id/Edit"
         android:text="Eliminar" />
-    />
 
+    <ImageView
+        android:id="@+id/porfilpicture"
+        android:layout_width="wrap_content"
+        android:layout_height="174dp"
+        app:srcCompat="@drawable/descarga" />
+
+    <Button
+        android:id="@+id/cambiarimagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtfecha"
+        android:layout_marginTop="120dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/boton_modificacion"
+        android:text="Cambiar Foto de Perfil" />
+
+    <Button
+        android:id="@+id/btnmapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mapa"
+        android:background="@drawable/boton_modificacion"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/Volver"
+        android:layout_marginTop="50dp"/>
 
 </RelativeLayout>
